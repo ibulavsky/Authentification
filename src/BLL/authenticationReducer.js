@@ -1,4 +1,5 @@
 import {apiAuthentication} from "../DAL/api-request";
+
 export const SET_AUTHENTICATION = 'TEST-APP/SET_AUTHENTICATION';
 export const AUTHENTICATION_RESULT = 'TEST-APP/AUTHENTICATION_RESULT';
 export const SET_USERNAME = 'TEST-APP/SET_USERNAME';
@@ -57,6 +58,8 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-    // api.login(username, password).then(() => dispatch(setAuthentication(true)))
-    //     .catch(() => dispatch(authenticationError(true)));
+    apiAuthentication.logout().then(() => {
+        dispatch(setAuthentication(false));
+        dispatch(setUserName(''));
+    })
 };

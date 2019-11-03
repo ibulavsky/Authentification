@@ -30,7 +30,6 @@ class Login extends React.Component {
         });
     };
 
-
     render() {
         if (this.props.isAuthentication) {
             return <Redirect to={"/profile"}/>
@@ -64,5 +63,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    login, logout
+    login
 })(Login);

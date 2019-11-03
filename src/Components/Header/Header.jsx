@@ -3,6 +3,7 @@ import styles from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import js from '../../media/js.png'
 import {connect} from "react-redux";
+import {logout} from "../../BLL/authenticationReducer";
 
 const Header = (props) => {
     return (
@@ -22,14 +23,16 @@ const Header = (props) => {
             </li>
             </span>
             <span className={styles.login}>
-                {props.username}
+               <span>{props.username}</span>
+                {props.isAuthentication && <button className={styles.button} onClick={props.logout}>X</button>}
             </span>
         </header>
     )
 };
 
 const mapStateToProps = (state) => ({
-    username: state.authentication.username
+    username: state.authentication.username,
+    isAuthentication: state.authentication.isAuthentication
 });
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, {logout})(Header);

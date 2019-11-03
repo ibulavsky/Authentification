@@ -11,6 +11,8 @@ export const apiAuthentication = {
         }
     },
     logout() {
-        // return
+        return Promise.resolve(
+            {isAuthentication: false}
+        )
     }
 };
