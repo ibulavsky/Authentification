@@ -1,12 +1,21 @@
 export const GET_POSTS = 'TEST-APP/GET-POSTS';
 
 const initialState = {
-    posts: [{
-        userId: 1,
-        id: 1,
-        title: 'some-title',
-        body: 'Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone!'
-    },],
+    posts: [
+        {
+            userId: 1,
+            id: 1,
+            title: 'Оу, это первый пост',
+            body: 'Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! ' +
+                'Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone! ' +
+                'Hey, everyone!'
+        }, {
+            userId: 2,
+            id: 2,
+            title: 'Second title',
+            body: 'Hey, everyone! Hey, everyone! Hey, everyone! Hey, everyone!'
+        },
+    ],
     postsPage: 1,
 };
 

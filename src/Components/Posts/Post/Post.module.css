@@ -1,0 +1,15 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+
+}
+
+.content {
+    width: 60%;
+    border: 1px solid #333333;
+    border-radius: 10px;
+}

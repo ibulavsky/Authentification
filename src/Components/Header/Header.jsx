@@ -11,13 +11,13 @@ const Header = (props) => {
             </span>
             <span className={styles.linkWrapper}>
                  <li className={styles.block}>
-                <NavLink to='/ '>Main</NavLink>
+                <NavLink to='/ '>Главная</NavLink>
             </li>
             <li className={styles.block}>
-                <NavLink to="/posts">News</NavLink>
+                <NavLink to="/posts">Новости</NavLink>
             </li>
             <li className={styles.block}>
-                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/profile">Профиль</NavLink>
             </li>
             </span>
             <span className={styles.login}>
