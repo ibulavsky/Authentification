@@ -1,9 +1,12 @@
+import {apiAuthentication} from "../DAL/api-request";
 export const SET_AUTHENTICATION = 'TEST-APP/SET_AUTHENTICATION';
 export const AUTHENTICATION_RESULT = 'TEST-APP/AUTHENTICATION_RESULT';
+export const SET_USERNAME = 'TEST-APP/SET_USERNAME';
 
 const initialState = {
     isAuthentication: false,
     authenticationError: false,
+    username: '',
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -18,6 +21,11 @@ const authenticationReducer = (state = initialState, action) => {
                 ...state,
                 authenticationError: action.authenticationError,
             };
+        case SET_USERNAME:
+            return {
+                ...state,
+                username: action.username,
+            };
         default:
             return state
     }
@@ -29,7 +37,26 @@ export default authenticationReducer;
 export const setAuthentication = (isAuthentication) => (
     {type: SET_AUTHENTICATION, isAuthentication}
 );
+export const setUserName = (username) => (
+    {type: SET_USERNAME, username}
+);
 
-export const tryAuthentication = (authenticationError) => (
+export const authenticationError = (authenticationError) => (
     {type: AUTHENTICATION_RESULT, authenticationError}
 );
+
+// THUNK CREATORS:
+export const login = (username, password) => (dispatch) => {
+    apiAuthentication.login(username, password)
+        .then(() => {
+                dispatch(setAuthentication(true));
+                dispatch(setUserName(username));
+            }
+        )
+        .catch(() => dispatch(authenticationError(true)));
+};
+
+export const logout = () => (dispatch) => {
+    // api.login(username, password).then(() => dispatch(setAuthentication(true)))
+    //     .catch(() => dispatch(authenticationError(true)));
+};

@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Header.module.css';
 import {NavLink} from "react-router-dom";
 import js from '../../media/js.png'
+import {connect} from "react-redux";
 
 const Header = (props) => {
     return (
@@ -21,10 +22,14 @@ const Header = (props) => {
             </li>
             </span>
             <span className={styles.login}>
-                {props.login}
+                {props.username}
             </span>
         </header>
     )
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+    username: state.authentication.username
+});
+
+export default connect(mapStateToProps, null)(Header);

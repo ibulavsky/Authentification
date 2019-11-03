@@ -5,14 +5,15 @@ import {connect} from "react-redux";
 
 const Posts = (props) => {
     let posts = props.posts.map((p) => <PostElement
+        key={p.id}
         title={p.title}
         content={p.body}
     />);
     return (
         <section className={styles.wrapper}>
-            <p>
+            <div>
                 {posts}
-            </p>
+            </div>
         </section>
     )
 };
