@@ -1,16 +1,22 @@
-export const AUTH_SUCCESS = 'TEST-APP/AUTH-SUCCESS';
+export const SET_AUTHENTICATION = 'TEST-APP/SET_AUTHENTICATION';
+export const AUTHENTICATION_RESULT = 'TEST-APP/AUTHENTICATION_RESULT';
 
 const initialState = {
     isAuthentication: false,
-
+    authenticationError: false,
 };
 
 const authenticationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case AUTH_SUCCESS:
+        case SET_AUTHENTICATION:
             return {
                 ...state,
                 isAuthentication: action.isAuthentication,
+            };
+        case AUTHENTICATION_RESULT:
+            return {
+                ...state,
+                authenticationError: action.authenticationError,
             };
         default:
             return state
@@ -19,6 +25,11 @@ const authenticationReducer = (state = initialState, action) => {
 
 export default authenticationReducer;
 
+// ACTION CREATORS:
 export const setAuthentication = (isAuthentication) => (
-    {type: AUTH_SUCCESS, isAuthentication}
+    {type: SET_AUTHENTICATION, isAuthentication}
+);
+
+export const tryAuthentication = (authenticationError) => (
+    {type: AUTHENTICATION_RESULT, authenticationError}
 );
