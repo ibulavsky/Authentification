@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Login.module.css';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {login, logout} from "../../BLL/authenticationReducer";
+import {falseAuthentication, login} from "../../BLL/authenticationReducer";
 
 class Login extends React.Component {
     state = {
@@ -11,12 +11,16 @@ class Login extends React.Component {
     };
 
     onLoginChanged = (e) => {
+        // зачищаю ошибку, может есть лучшее решение
+        this.props.falseAuthentication(false);
         this.setState({
             login: e.currentTarget.value
         });
     };
 
     onPasswordChanged = (e) => {
+        // зачищаю ошибку, может есть лучшее решение
+        this.props.falseAuthentication(false);
         this.setState({
             password: e.currentTarget.value
         });
@@ -63,5 +67,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    login
+    login, falseAuthentication
 })(Login);
