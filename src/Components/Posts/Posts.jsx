@@ -2,13 +2,24 @@ import React, {Component} from 'react';
 import styles from './Posts.module.css';
 import PostElement from "./Post/PostElement";
 import {connect} from "react-redux";
-import {getPosts} from "../../BLL/postsReducer";
+import {getPosts, nextPage} from "../../BLL/postsReducer";
 
 class Posts extends Component {
 
     componentDidMount() {
         this.props.getPosts(this.props.postsPage);
     }
+
+    onScroll = (e) => {
+        const div = e.currentTarget;
+        // debugger
+        if ((Math.ceil(div.scrollTop + 1)) >= (div.scrollHeight - div.offsetHeight)) {
+            div.scrollTop = div.scrollHeight;
+            this.props.nextPage();
+            this.props.getPosts(this.props.postsPage);
+            console.log('scroll');
+        }
+    };
 
     render() {
         let posts = this.props.posts.map((p) => <PostElement
@@ -18,7 +29,8 @@ class Posts extends Component {
         />);
         return (
             <section className={styles.wrapper}>
-                <div>
+                <div onScroll={this.onScroll}
+                     style={{position: 'absolute', height: '100%', overflowY: 'scroll', width: '100%'}}>
                     {posts}
                 </div>
             </section>
@@ -26,10 +38,16 @@ class Posts extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-        posts: state.posts.posts,
-        postsPage: state.posts.postsPage
-    }
-);
+const
+    mapStateToProps = (state) => ({
+            posts: state.posts.posts,
+            postsPage: state.posts.postsPage
+        }
+    );
 
-export default connect(mapStateToProps, {getPosts})(Posts);
+export default connect(mapStateToProps, {getPosts, nextPage})
+
+(
+    Posts
+)
+;

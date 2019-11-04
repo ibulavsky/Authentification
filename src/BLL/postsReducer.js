@@ -1,6 +1,8 @@
 import {apiPosts} from "../DAL/api_posts-request";
 
 export const MOUNT_POSTS = 'TEST-APP/MOUNT-POSTS';
+export const NEXT_PAGE = 'TEST-APP/NEXT_PAGE';
+
 
 const initialState = {
     posts: [
@@ -26,18 +28,26 @@ const postsReducer = (state = initialState, action) => {
         case MOUNT_POSTS:
             return {
                 ...state,
-                posts: action.posts,
+                posts: [...state.posts, ...action.posts],
+            };
+        case NEXT_PAGE:
+            return {
+                ...state,
+                postPage: state.posts + 1,
             };
         default:
             return state
     }
 };
 
-
 export default postsReducer;
 
 const mountPosts = (posts) => (
     {type: MOUNT_POSTS, posts}
+);
+
+export const nextPage = (dispatch, state) => (
+    {type: NEXT_PAGE}
 );
 
 export const getPosts = (page) => (dispatch) => {
@@ -47,3 +57,5 @@ export const getPosts = (page) => (dispatch) => {
             }
         )
 };
+
+

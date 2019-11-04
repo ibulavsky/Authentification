@@ -42,6 +42,7 @@
 }
 
 .login {
+    position: absolute;
     display: flex;
     color: white;
     margin-right: 20px;

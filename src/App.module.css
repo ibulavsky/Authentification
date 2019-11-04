@@ -1,0 +1,10 @@
+.app {
+    text-align: center;
+    position: relative;
+    height: calc(100vh - 150px);
+}
+
+.wrapper {
+    position: relative;
+    height: 100%
+}

@@ -42,19 +42,27 @@ export const setUserName = (username) => (
     {type: SET_USERNAME, username}
 );
 
-export const falseAuthentication = (authenticationError) => (
+export const authenticationFalse = (authenticationError) => (
     {type: AUTHENTICATION_ERROR, authenticationError}
 );
 
 // THUNK CREATORS:
 export const login = (username, password) => (dispatch) => {
     return apiAuthentication.login(username, password)
-        .then(() => {
-                dispatch(setAuthentication(true));
-                dispatch(setUserName(username));
+        .then((response) => {
+                if (response.result === 0) {
+                    dispatch(setAuthentication(true));
+                    dispatch(setUserName(username));
+                } else {
+                    dispatch(authenticationFalse(true))
+                }
             }
         )
-        .catch(() => dispatch(falseAuthentication(true)));
+        .catch((response) => {
+            if (response.result !== 0) {
+                dispatch(authenticationFalse(true))
+            }
+        });
 };
 
 export const logout = () => (dispatch) => {

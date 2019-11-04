@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Login.module.css';
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
-import {falseAuthentication, login} from "../../BLL/authenticationReducer";
+import {authenticationFalse, login} from "../../BLL/authenticationReducer";
 
 class Login extends React.Component {
     state = {
@@ -67,5 +67,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    login, falseAuthentication
+    login, falseAuthentication: authenticationFalse
 })(Login);
