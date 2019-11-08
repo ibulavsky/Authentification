@@ -7,19 +7,16 @@ import {logout} from "../../BLL/authenticationReducer";
 const Header = (props) => {
     return (
         <header className={styles.header}>
-            <span className={styles.logo}>
-                {/*<img src={js} alt='logo'/>*/}
-            </span>
             <ul className={styles.linkWrapper}>
-                 <li className={styles.block}>
-                <NavLink to='/ '>Главная</NavLink>
-            </li>
-            <li className={styles.block}>
-                <NavLink to="/posts">Новости</NavLink>
-            </li>
-            <li className={styles.block}>
-                <NavLink to="/profile">Профиль</NavLink>
-            </li>
+                <li className={styles.block}>
+                    <NavLink to='/ '>Главная</NavLink>
+                </li>
+                <li className={styles.block}>
+                    <NavLink to="/posts">Новости</NavLink>
+                </li>
+                <li className={styles.block}>
+                    <NavLink to="/profile">Профиль</NavLink>
+                </li>
             </ul>
             <span className={styles.login}>
                <span>{props.username}</span>

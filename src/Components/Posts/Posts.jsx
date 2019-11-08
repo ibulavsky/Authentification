@@ -45,9 +45,4 @@ const
         }
     );
 
-export default connect(mapStateToProps, {getPosts, nextPage})
-
-(
-    Posts
-)
-;
+export default connect(mapStateToProps, {getPosts, nextPage})(Posts);

@@ -1,4 +1,5 @@
 import {apiAuthentication} from "../DAL/api_auth-request";
+import {storage} from "../DAL/storage";
 
 export const SET_AUTHENTICATION = 'TEST-APP/SET_AUTHENTICATION';
 export const AUTHENTICATION_ERROR = 'TEST-APP/AUTHENTICATION_ERROR';
@@ -48,27 +49,52 @@ export const authenticationFalse = (authenticationError) => (
 
 // THUNK CREATORS:
 export const login = (username, password) => (dispatch) => {
-    return apiAuthentication.login(username, password)
+    apiAuthentication.login(username, password)
         .then((response) => {
                 if (response.result === 0) {
                     dispatch(setAuthentication(true));
                     dispatch(setUserName(username));
+                    return response;
                 } else {
-                    dispatch(authenticationFalse(true))
+                    dispatch(authenticationFalse(true));
+                    return response
                 }
             }
         )
-        .catch((response) => {
-            if (response.result !== 0) {
-                dispatch(authenticationFalse(true))
+        .then(response => storage.saveToken(response.token))
+//         .catch((response) => {
+//             if (response.result !== 0) {
+//                 dispatch(authenticationFalse(true))
+//             }
+//         });
+};
+
+export const logout = () => (dispatch) => {
+    return apiAuthentication.logout()
+        .then(response => {
+            if (response.result === 0) {
+                dispatch(setAuthentication(false));
+                dispatch(setUserName(''));
+                storage.saveToken(response.token);
+                return response;
+            } else {
+                console.log('Logout Error')
             }
         });
 };
 
-export const logout = () => (dispatch) => {
-    return apiAuthentication.logout().then(() => {
-        dispatch(setAuthentication(false));
-        dispatch(setUserName(''));
-    })
+export const checkAuthorization = () => (dispatch) => {
+    return storage.loadToken()
+        .then((token) => {
+            if (token !== 'null') {
+                // js преобразует null в строку 'null' , как этого избежать?
+                dispatch(setAuthentication(true));
+                // как определить имя пользователя по токену?
+                dispatch(setUserName('Admin'));
+            } else {
+                dispatch(setAuthentication(false));
+                dispatch(setUserName(''));
+            }
+        })
 };
 
