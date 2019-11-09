@@ -49,11 +49,13 @@ export const authenticationFalse = (authenticationError) => (
 
 // THUNK CREATORS:
 export const login = (username, password) => (dispatch) => {
+    // const loginResponse =
     apiAuthentication.login(username, password)
         .then((response) => {
                 if (response.result === 0) {
+                    storage.saveToken(response.token);
                     dispatch(setAuthentication(true));
-                    dispatch(setUserName(username));
+                    dispatch(setUserName(response.username));
                     return response;
                 } else {
                     dispatch(authenticationFalse(true));
@@ -61,26 +63,24 @@ export const login = (username, password) => (dispatch) => {
                 }
             }
         )
-        .then(response => storage.saveToken(response.token))
-//         .catch((response) => {
-//             if (response.result !== 0) {
-//                 dispatch(authenticationFalse(true))
-//             }
-//         });
 };
 
 export const logout = () => (dispatch) => {
     return apiAuthentication.logout()
         .then(response => {
-            if (response.result === 0) {
-                dispatch(setAuthentication(false));
-                dispatch(setUserName(''));
-                storage.saveToken(response.token);
-                return response;
-            } else {
-                console.log('Logout Error')
+                if (response.result === 0) {
+                    storage.saveToken(response.token)
+                        .then(() => {
+                                dispatch(setAuthentication(false));
+                                dispatch(setUserName(''));
+                                return response
+                            }
+                        )
+                } else {
+                    console.log('Logout Error')
+                }
             }
-        });
+        );
 };
 
 export const checkAuthorization = () => (dispatch) => {

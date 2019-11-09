@@ -46,7 +46,7 @@ const mountPosts = (posts) => (
     {type: MOUNT_POSTS, posts}
 );
 
-export const nextPage = (dispatch, state) => (
+export const nextPage = () => (
     {type: NEXT_PAGE}
 );
 

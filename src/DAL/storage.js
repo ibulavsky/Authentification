@@ -1,10 +1,12 @@
 export const storage = {
     saveToken(data) {
-        localStorage.setItem('token', data)
-        // нужно ли здесь сохранять токен ассинхронно? ведь он у нас уже сформирован на сервере
-        // в момент когда login()
+        return Promise.resolve(
+            localStorage.setItem('token', data)
+        )
     },
     loadToken() {
-        return Promise.resolve(localStorage.getItem('token'))
+        return Promise.resolve(
+            localStorage.getItem('token')
+        )
     }
 };
