@@ -66,7 +66,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-    return apiAuthentication.logout()
+    apiAuthentication.logout()
         .then(response => {
                 if (response.result === 0) {
                     storage.saveToken(response.token)
@@ -84,7 +84,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const checkAuthorization = () => (dispatch) => {
-    return storage.loadToken()
+    storage.loadToken()
         .then((token) => {
             if (token !== 'null') {
                 // js преобразует null в строку 'null' , как этого избежать?

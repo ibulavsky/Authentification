@@ -2,6 +2,7 @@ import {apiPosts} from "../DAL/api_posts-request";
 
 export const MOUNT_POSTS = 'TEST-APP/MOUNT-POSTS';
 export const NEXT_PAGE = 'TEST-APP/NEXT_PAGE';
+export const LOADING = 'TEST-APP/LOADING';
 
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
         // },
     ],
     postsPage: 1,
+    isLoading: false
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -33,7 +35,12 @@ const postsReducer = (state = initialState, action) => {
         case NEXT_PAGE:
             return {
                 ...state,
-                postPage: state.posts + 1,
+                postsPage: (state.postsPage + 1),
+            };
+        case LOADING:
+            return {
+                ...state,
+                isLoading: action.loading,
             };
         default:
             return state
@@ -46,16 +53,25 @@ const mountPosts = (posts) => (
     {type: MOUNT_POSTS, posts}
 );
 
-export const nextPage = () => (
-    {type: NEXT_PAGE}
-);
+export const nextPage = () => {
+    return (
+        {type: NEXT_PAGE}
+    )
+};
 
-export const getPosts = (page) => (dispatch) => {
-    return apiPosts.getPosts(page)
-        .then((posts) => {
-                dispatch(mountPosts(posts))
-            }
-        )
+const loading = (loading) => ({type: LOADING, loading});
+
+export const getPosts = (page) => (dispatch, getState) => {
+    if (!getState().posts.isLoading) {
+        dispatch(loading(true));
+        apiPosts.getPosts(page)
+            .then((posts) => {
+                    dispatch(mountPosts(posts));
+                    dispatch(nextPage());
+                    dispatch(loading(false));
+                }
+            );
+    }
 };
 
 

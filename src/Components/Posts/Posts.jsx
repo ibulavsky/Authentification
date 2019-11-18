@@ -8,22 +8,20 @@ class Posts extends Component {
 
     componentDidMount() {
         this.props.getPosts(this.props.postsPage);
+        // this.props.nextPage();
     }
 
     onScroll = (e) => {
         const div = e.currentTarget;
-        // debugger
-        if ((Math.ceil(div.scrollTop + 1)) >= (div.scrollHeight - div.offsetHeight)) {
-            div.scrollTop = div.scrollHeight;
-            this.props.nextPage();
+        if ((div.offsetHeight + Math.ceil(div.scrollTop)) >= div.scrollHeight) {
             this.props.getPosts(this.props.postsPage);
-            console.log('scroll');
+            // div.scrollTop = div.scrollHeight;
         }
     };
 
-    render() {
+    render(props) {
         let posts = this.props.posts.map((p) => <PostElement
-            key={p.id}
+            key={p.id + Math.random()}
             title={p.title}
             content={p.body}
         />);

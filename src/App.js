@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from './App.module.css';
-import {Route} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 import Main from "./Components/Main/Main";
 import Profile from "./Components/Profile/Profile";
 import Posts from "./Components/Posts/Posts";
@@ -17,7 +17,6 @@ class App extends Component {
     };
 
     render(props) {
-
         return (
             <div className={styles.app}>
                 <Header/>
