@@ -7,7 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import store from "./BLL/redux";
 import {Provider} from "react-redux";
 
-ReactDOM.render(<BrowserRouter>
+ReactDOM.render(<BrowserRouter basename={process.env.PUBLIC_URL}>
     <Provider store={store}>
         <App/>
     </Provider>
