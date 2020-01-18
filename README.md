@@ -1,4 +1,4 @@
-### Для просмотра демо проекта перейдите по [ссылке](https://ibulavsky.github.io/authentification).
+### Для просмотра демо проекта перейдите по [ссылке](https://ibulavsky.github.io/authentication).
 ***
 > 
 >В данном проекте реализована аутентификация пользователя делая запрос к псевдоAPI (login: Admin, password: 111111).
